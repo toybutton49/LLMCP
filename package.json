@@ -1,0 +1,51 @@
+{
+  "name": "LLMCP",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "tsx server.ts",
+    "build": "vite build",
+    "start": "tsx server.ts",
+    "preview": "tsx server.ts --production",
+    "clean": "node -e \"const fs = require('node:fs'); fs.rmSync('dist', { recursive: true, force: true }); fs.rmSync('server.js', { force: true });\"",
+    "clean:data": "tsx scripts/clean-data.ts",
+    "lint": "tsc --noEmit",
+    "test": "node -e \"const fs = require('node:fs'), cp = require('node:child_process'); process.exit(fs.existsSync('dev/run-tests.mjs') ? (cp.spawnSync(process.execPath, ['dev/run-tests.mjs'], { stdio: 'inherit' }).status ?? 1) : (cp.spawnSync(process.execPath, ['node_modules/typescript/bin/tsc', '--noEmit'], { stdio: 'inherit' }).status ?? 1));\""
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^1.1.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.1.1",
+    "express": "^4.21.2",
+    "kokoro-js": "^1.2.1",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "pdfjs-dist": "^6.5.438",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1",
+    "sharp": "^0.35.5",
+    "tsx": "^4.21.0",
+    "vite": "^8.3.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "autoprefixer": "^10.4.21",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2"
+  },
+  "allowScripts": {
+    "esbuild": true
+  },
+  "overrides": {
+    "@huggingface/transformers": {
+      "sharp": "$sharp"
+    }
+  }
+}

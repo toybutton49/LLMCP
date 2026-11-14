@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/jpeg" href="/assets/logos/llmcp-octopus.jpg" />
+    <link rel="shortcut icon" type="image/jpeg" href="/assets/logos/llmcp-octopus.jpg" />
+    <title>LLMCP - Large Language Model Control Portal</title>
+    <meta name="description" content="Offline inference with zero cloud telemetry. An OCR model turns documents into RAG context, and an embedding model vectorizes memories, files, prompts and responses so similar stored data is added to the prompt." />
+    <meta property="og:title" content="LLMCP - Large Language Model Control Portal" />
+    <meta property="og:description" content="Offline inference with zero cloud telemetry. An OCR model turns documents into RAG context, and an embedding model vectorizes memories, files, prompts and responses so similar stored data is added to the prompt." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      window.addEventListener('unhandledrejection', function (event) {
+        var msg = event && event.reason && (event.reason.message || String(event.reason));
+        if (
+          typeof msg === 'string' &&
+          (msg.indexOf('WebSocket closed without opened') !== -1 ||
+            msg.indexOf('failed to connect to websocket') !== -1)
+        ) {
+          event.preventDefault();
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

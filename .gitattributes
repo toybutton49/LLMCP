@@ -1,0 +1,5 @@
+* text=auto eol=lf
+models/nomic-embed-text-v1.5.Q8_0.gguf filter=lfs diff=lfs merge=lfs -text
+models/GLM-OCR-GGUF/GLM-OCR-Q8_0.gguf filter=lfs diff=lfs merge=lfs -text
+models/GLM-OCR-GGUF/mmproj-GLM-OCR-Q8_0.gguf filter=lfs diff=lfs merge=lfs -text
+models/Kokoro-82M-v1.0-ONNX/onnx/model_quantized.onnx filter=lfs diff=lfs merge=lfs -text

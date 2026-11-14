@@ -1,0 +1,237 @@
+@import "tailwindcss" source("../src");
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: 'Tenorite';
+  src: local('Tenorite'), local('Tenorite Regular'), local('Tenorite-Regular');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tenorite';
+  src: local('Tenorite Italic'), local('Tenorite-Italic'), local('Tenorite');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tenorite';
+  src: local('Tenorite Medium'), local('Tenorite-Medium'), local('Tenorite');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tenorite';
+  src: local('Tenorite Bold'), local('Tenorite-Bold'), local('Tenorite Medium');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tenorite';
+  src: local('Tenorite Bold'), local('Tenorite-Bold'), local('Tenorite');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: 'Tenorite', 'Aptos', 'Segoe UI Variable Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Tenorite', 'Aptos Display', 'Segoe UI Variable Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-editorial: 'Tenorite', 'Aptos', 'Segoe UI Variable Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Cascadia Code', 'Cascadia Mono', 'JetBrains Mono', 'SF Mono', 'Consolas', ui-monospace, monospace;
+}
+
+:root,
+:root[data-accent="salmon"],
+:root[data-accent="copper"] {
+  --font-sans: 'Tenorite', 'Aptos', 'Segoe UI Variable Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Tenorite', 'Aptos Display', 'Segoe UI Variable Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-editorial: 'Tenorite', 'Aptos', 'Segoe UI Variable Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Cascadia Code', 'Cascadia Mono', 'JetBrains Mono', 'SF Mono', 'Consolas', ui-monospace, monospace;
+
+  /* Default Brand Accent: Neon Salmon Circuit (#f27261) */
+  --ic-accent: #e05a47;
+  --ic-accent-hover: #c94634;
+  --ic-accent-light: #f27261;
+  --ic-accent-subtle: rgba(242, 114, 97, 0.12);
+  --ic-accent-border: rgba(242, 114, 97, 0.45);
+  --ic-accent-fg: #ffffff;
+}
+
+:root.dark,
+:root.dark[data-accent="salmon"],
+:root.dark[data-accent="copper"] {
+  --ic-accent: #f27261;
+  --ic-accent-hover: #e05a47;
+  --ic-accent-light: #ff9a8b;
+  --ic-accent-subtle: rgba(242, 114, 97, 0.15);
+  --ic-accent-border: rgba(242, 114, 97, 0.48);
+  --ic-accent-fg: #0b0d13;
+}
+
+/* Preset 2: Oxide Emerald */
+:root[data-accent="emerald"] {
+  --ic-accent: #059669;
+  --ic-accent-hover: #047857;
+  --ic-accent-light: #10b981;
+  --ic-accent-subtle: rgba(5, 150, 105, 0.12);
+  --ic-accent-border: rgba(5, 150, 105, 0.45);
+  --ic-accent-fg: #ffffff;
+}
+:root.dark[data-accent="emerald"] {
+  --ic-accent: #10b981;
+  --ic-accent-hover: #059669;
+  --ic-accent-light: #34d399;
+  --ic-accent-subtle: rgba(16, 185, 129, 0.14);
+  --ic-accent-border: rgba(16, 185, 129, 0.45);
+  --ic-accent-fg: #09090b;
+}
+
+/* Preset 3: Foundry Crimson */
+:root[data-accent="crimson"] {
+  --ic-accent: #e11d48;
+  --ic-accent-hover: #be123c;
+  --ic-accent-light: #f43f5e;
+  --ic-accent-subtle: rgba(225, 29, 72, 0.11);
+  --ic-accent-border: rgba(225, 29, 72, 0.45);
+  --ic-accent-fg: #ffffff;
+}
+:root.dark[data-accent="crimson"] {
+  --ic-accent: #f43f5e;
+  --ic-accent-hover: #e11d48;
+  --ic-accent-light: #fb7185;
+  --ic-accent-subtle: rgba(244, 63, 94, 0.15);
+  --ic-accent-border: rgba(244, 63, 94, 0.45);
+  --ic-accent-fg: #ffffff;
+}
+
+/* Preset 4: Ultraviolet Alloy */
+:root[data-accent="violet"] {
+  --ic-accent: #7c3aed;
+  --ic-accent-hover: #6d28d9;
+  --ic-accent-light: #8b5cf6;
+  --ic-accent-subtle: rgba(124, 58, 237, 0.11);
+  --ic-accent-border: rgba(124, 58, 237, 0.45);
+  --ic-accent-fg: #ffffff;
+}
+:root.dark[data-accent="violet"] {
+  --ic-accent: #a78bfa;
+  --ic-accent-hover: #8b5cf6;
+  --ic-accent-light: #c4b5fd;
+  --ic-accent-subtle: rgba(167, 139, 250, 0.15);
+  --ic-accent-border: rgba(167, 139, 250, 0.45);
+  --ic-accent-fg: #09090b;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;
+  letter-spacing: -0.004em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.014em;
+}
+
+.font-editorial {
+  font-family: var(--font-editorial);
+}
+
+.kicker-label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.prose-response {
+  font-family: var(--font-sans);
+  font-size: 0.90625rem;
+  line-height: 1.72;
+  letter-spacing: -0.003em;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 640px) {
+  .prose-response {
+    font-size: 0.9375rem;
+  }
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums slashed-zero;
+  letter-spacing: -0.015em;
+}
+
+/* Semantic Theme Accent Utilities */
+.bg-accent {
+  background-color: var(--ic-accent);
+  color: var(--ic-accent-fg);
+}
+.bg-accent:hover {
+  background-color: var(--ic-accent-hover);
+}
+.bg-accent-subtle {
+  background-color: var(--ic-accent-subtle);
+}
+.text-accent {
+  color: var(--ic-accent);
+}
+.dark .text-accent {
+  color: var(--ic-accent-light);
+}
+.border-accent {
+  border-color: var(--ic-accent-border);
+}
+.focus-accent:focus,
+.focus-within-accent:focus-within {
+  border-color: var(--ic-accent);
+  outline: none;
+}
+.accent-slider,
+.accent-accent {
+  accent-color: var(--ic-accent);
+}
+.accent-slider::-webkit-slider-thumb,
+.accent-accent::-webkit-slider-thumb {
+  background-color: var(--ic-accent);
+}
+.accent-slider::-moz-range-thumb,
+.accent-accent::-moz-range-thumb {
+  background-color: var(--ic-accent);
+}
+
+/* Sleek Dark Scrollbars (Eliminates White Native OS Scrollbar Tracks) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(161, 161, 170, 0.28) transparent;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(161, 161, 170, 0.28);
+  border-radius: 9999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(242, 114, 97, 0.55);
+}

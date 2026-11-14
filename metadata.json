@@ -1,0 +1,4 @@
+{
+  "name": "LLMCP",
+  "description": "Large Language Model Control Portal. Offline inference with zero cloud telemetry. An OCR model turns documents into RAG context, and an embedding model vectorizes memories, files, prompts and responses so similar stored data is added to the prompt."
+}

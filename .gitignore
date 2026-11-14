@@ -1,0 +1,71 @@
+# Dependencies and build outputs
+node_modules/
+dist/
+/server.js
+.vite/
+*.tsbuildinfo
+
+# Internal IP documentation, local test suite, and QA artifacts
+/.test-data/
+coverage/
+.playwright-cli/
+playwright-report/
+test-results/
+
+# Local editor, environment, and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+.env
+.env.*
+*.pem
+*.crt
+*.key
+
+# Local workspace data and File Repo structure
+# (Upload clean .local-data/llmcp-db.json and empty .local-data/file-repo/ structure;
+#  ignore vector store, backups, uploaded files, and test sandboxes)
+.local-data/*
+!.local-data/.gitkeep
+!.local-data/llmcp-db.json
+!.local-data/file-repo/
+.local-data/file-repo/*
+!.local-data/file-repo/.gitkeep
+
+# Model weights (ignore chat/extra models; allow bundled Git LFS auxiliary weights)
+*.gguf
+models/*
+!models/.gitkeep
+!models/nomic-embed-text-v1.5.Q8_0.gguf
+!models/GLM-OCR-GGUF/
+models/GLM-OCR-GGUF/*
+!models/GLM-OCR-GGUF/GLM-OCR-Q8_0.gguf
+!models/GLM-OCR-GGUF/mmproj-GLM-OCR-Q8_0.gguf
+!models/Kokoro-82M-v1.0-ONNX/
+models/Kokoro-82M-v1.0-ONNX/*
+!models/Kokoro-82M-v1.0-ONNX/config.json
+!models/Kokoro-82M-v1.0-ONNX/tokenizer.json
+!models/Kokoro-82M-v1.0-ONNX/tokenizer_config.json
+!models/Kokoro-82M-v1.0-ONNX/onnx/
+models/Kokoro-82M-v1.0-ONNX/onnx/*
+!models/Kokoro-82M-v1.0-ONNX/onnx/model_quantized.onnx
+
+# Runtime temp/backup files and private workspace exports
+*.log
+*.tmp
+*.bak.json
+.ocr-*/
+llmcp-router-*/
+/llmcp-db.json
+octo-vector-db.json
+llmcp-local-db-*.json
+llmcp-encrypted-vault-*.aes.json
+*.aes.json
+llmcp-chat-debug-*.json
+llmcp-memories-*.json
+llmcp-runtime-logs-*.json
+
+
+
