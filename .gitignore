@@ -51,6 +51,7 @@ models/Kokoro-82M-v1.0-ONNX/*
 !models/Kokoro-82M-v1.0-ONNX/onnx/
 models/Kokoro-82M-v1.0-ONNX/onnx/*
 !models/Kokoro-82M-v1.0-ONNX/onnx/model_quantized.onnx
+/LLMCP/models/GLM-OCR-GGUF/
 
 # Runtime temp/backup files and private workspace exports
 *.log
