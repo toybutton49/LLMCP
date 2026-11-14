@@ -4,7 +4,7 @@ dist/
 /server.js
 .vite/
 *.tsbuildinfo
-
+./dev/tests/ui-port.test.ts
 # Internal IP documentation, local test suite, and QA artifacts
 /.test-data/
 coverage/

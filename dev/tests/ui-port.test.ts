@@ -144,8 +144,8 @@ test('Vite Rolldown codeSplitting produces bounded acyclic production chunks and
 test('LAN and Tailscale network policy permits loopback, RFC1918 LAN, and Tailscale while blocking public internet and DNS rebinding', () => {
   assert.equal(validateBindHost([], undefined), '0.0.0.0');
   assert.equal(validateBindHost(['--host', '127.0.0.1'], undefined), '127.0.0.1');
-  assert.equal(validateBindHost(['--host=10.0.0.233'], undefined), '10.0.0.233');
-  assert.equal(validateBindHost([], '100.123.24.121'), '100.123.24.121');
+  assert.equal(validateBindHost(['--host=192.168.1.50'], undefined), '192.168.1.50');
+  assert.equal(validateBindHost([], '100.64.0.10'), '100.64.0.10');
   assert.throws(() => validateBindHost(['--host', '8.8.8.8'], undefined));
   assert.throws(() => validateBindHost(['--host'], undefined));
 
@@ -154,12 +154,12 @@ test('LAN and Tailscale network policy permits loopback, RFC1918 LAN, and Tailsc
     '127.0.0.1',
     '::1',
     '::ffff:127.0.0.1',
-    '10.0.0.233',
+    '192.168.1.50',
     '::ffff:10.0.0.45',
     '192.168.1.25',
     '172.16.5.9',
     '172.31.255.254',
-    '100.123.24.121',
+    '100.64.0.10',
     '100.64.0.1',
     '100.127.255.254',
     'fd7a:115c:a1e0::1',
@@ -183,15 +183,15 @@ test('LAN and Tailscale network policy permits loopback, RFC1918 LAN, and Tailsc
 
   // Allowed Host & Origin headers (LAN IP, Tailscale IP, Tailscale MagicDNS, local hostname)
   assert.equal(isAllowedHostHeader('localhost:3000', 'workstation'), true);
-  assert.equal(isAllowedHostHeader('10.0.0.233:3000', 'workstation'), true);
-  assert.equal(isAllowedHostHeader('100.123.24.121:3000', 'workstation'), true);
+  assert.equal(isAllowedHostHeader('192.168.1.50:3000', 'workstation'), true);
+  assert.equal(isAllowedHostHeader('100.64.0.10:3000', 'workstation'), true);
   assert.equal(isAllowedHostHeader('workstation:3000', 'workstation'), true);
   assert.equal(isAllowedHostHeader('workstation.local:3000', 'workstation'), true);
   assert.equal(isAllowedHostHeader('workstation.tailnet.ts.net:3000', 'workstation'), true);
   assert.equal(isAllowedHostHeader('evil.example.com:3000', 'workstation'), false);
 
-  assert.equal(isAllowedOriginHeader('http://10.0.0.233:3000', 'workstation'), true);
-  assert.equal(isAllowedOriginHeader('http://100.123.24.121:3000', 'workstation'), true);
+  assert.equal(isAllowedOriginHeader('http://192.168.1.50:3000', 'workstation'), true);
+  assert.equal(isAllowedOriginHeader('http://100.64.0.10:3000', 'workstation'), true);
   assert.equal(isAllowedOriginHeader('https://workstation.tailnet.ts.net', 'workstation'), true);
   assert.equal(isAllowedOriginHeader('https://evil.example.com', 'workstation'), false);
 
@@ -223,23 +223,23 @@ test('LAN and Tailscale network policy permits loopback, RFC1918 LAN, and Tailsc
     return { statusCode, passed };
   };
 
-  assert.deepEqual(invoke('::ffff:10.0.0.50', '10.0.0.233:3000', '/api/tts/status', 'http://10.0.0.233:3000'), {
+  assert.deepEqual(invoke('::ffff:192.168.1.25', '192.168.1.50:3000', '/api/tts/status', 'http://192.168.1.50:3000'), {
     statusCode: 200,
     passed: true
   });
-  assert.deepEqual(invoke('::ffff:100.101.2.3', '100.123.24.121:3000', '/api/chat/stream', 'http://100.123.24.121:3000'), {
+  assert.deepEqual(invoke('::ffff:100.64.0.20', '100.64.0.10:3000', '/api/chat/stream', 'http://100.64.0.10:3000'), {
     statusCode: 200,
     passed: true
   });
-  assert.deepEqual(invoke('203.0.113.10', '10.0.0.233:3000', '/'), {
+  assert.deepEqual(invoke('203.0.113.10', '192.168.1.50:3000', '/'), {
     statusCode: 403,
     passed: false
   });
-  assert.deepEqual(invoke('::ffff:10.0.0.50', 'rebind-attacker.com:3000', '/api/local-db'), {
+  assert.deepEqual(invoke('::ffff:192.168.1.25', 'rebind-attacker.com:3000', '/api/local-db'), {
     statusCode: 403,
     passed: false
   });
-  assert.deepEqual(invoke('::ffff:10.0.0.50', '10.0.0.233:3000', '/api/local-db/sync', 'https://attacker.com'), {
+  assert.deepEqual(invoke('::ffff:192.168.1.25', '192.168.1.50:3000', '/api/local-db/sync', 'https://attacker.com'), {
     statusCode: 403,
     passed: false
   });

@@ -41,7 +41,7 @@ LLMCP (Large Language Model Control Portal) is a self-contained browser app with
 - [Git LFS](https://git-lfs.com/) to fetch the bundled OCR and embedding weights (about 1.58 GB total).
 - A compatible chat GGUF model of your choice. Nomic embedding and GLM-OCR weights are included with the repository; you do not need to find them separately. See [Models](#models).
 
-LLMCP serves its interface on `0.0.0.0:3000` by default (accessible on `http://localhost:3000`, your host PC's private LAN IP, and Tailscale `100.64.0.0/10` / `*.ts.net`, configurable via `--port`, `PORT`, `--host`, `HOST`, or Settings) while keeping the built-in llama.cpp router strictly on loopback (`http://127.0.0.1:8080` by default, configurable via `LLAMA_CPP_BASE_URL` or Settings) for on-demand local model loading and inference.
+LLMCP serves its interface on `0.0.0.0:3000` by default (accessible on `http://localhost:3000` or your host machine's private LAN address, configurable via `--port`, `PORT`, `--host`, `HOST`, or Settings) while keeping the built-in llama.cpp router strictly on loopback (`http://127.0.0.1:8080` by default, configurable via `LLAMA_CPP_BASE_URL` or Settings) for on-demand local model loading and inference.
 No `.env` file is needed or loaded; app settings are stored in the local workspace database. If an old `.env` selected a custom database or File Repo location, migrate that data before switching to the default locations.
 
 ### Start it
@@ -104,7 +104,7 @@ Fresh workspaces start with empty model selections and dynamically select a uniq
 
 ## Data and network
 
-The app server accepts requests from loopback (`localhost` / `127.0.0.1`), private RFC1918 LAN addresses, and Tailscale (`100.64.0.0/10` and `*.ts.net` MagicDNS), blocking public internet IPs and untrusted `Host` / `Origin` headers. Pass `--host 127.0.0.1` (or `HOST=127.0.0.1`) to restrict binding strictly to loopback. A clean default workspace database ships at `.local-data/llmcp-db.json`, and original File Repo files are stored under `.local-data/file-repo/` (`.gitkeep` placeholders preserve the directory structure while uploaded files, backups, and vector indexes remain gitignored). Only the three bundled OCR/embedding weight files are tracked with Git LFS; chat models and other weights under `models/` remain gitignored. Git LFS contacts GitHub when you fetch the bundled weights.
+The app server accepts requests from loopback (`localhost` / `127.0.0.1`) and private LAN / overlay network addresses, blocking public internet IPs and untrusted `Host` / `Origin` headers. Pass `--host 127.0.0.1` (or `HOST=127.0.0.1`) to restrict binding strictly to loopback. A clean default workspace database ships at `.local-data/llmcp-db.json`, and original File Repo files are stored under `.local-data/file-repo/` (`.gitkeep` placeholders preserve the directory structure while uploaded files, backups, and vector indexes remain gitignored). All model weights under `models/` remain gitignored and are not uploaded to GitHub.
 
 Web search and page fetching contact external services only when you use those tools. Workspace snapshots do not include model weights or original files in the File Repo, so back those up separately.
 
