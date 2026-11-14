@@ -71,11 +71,13 @@ test('cleanAllAppData removes personal chats, prompts, RAG docs, vector DB, File
   );
 });
 
-test('clean-data.ps1 PowerShell wrapper and scripts/clean-data.ts run cleanly from project root and scripts folder', () => {
-  const ps1Path = path.resolve(process.cwd(), 'clean-data.ps1');
+test('scripts/clean-data.ps1 PowerShell wrapper and scripts/clean-data.ts run cleanly from project root and scripts folder', () => {
+  const ps1Path = path.resolve(process.cwd(), 'scripts', 'clean-data.ps1');
   assert.equal(fs.existsSync(ps1Path), true);
+  assert.equal(fs.existsSync(path.resolve(process.cwd(), 'clean-data.ps1')), false);
   const content = fs.readFileSync(ps1Path, 'utf-8');
-  assert.ok(content.includes('Push-Location -LiteralPath $PSScriptRoot'));
+  assert.ok(content.includes('Split-Path -Parent $PSScriptRoot'));
+  assert.ok(content.includes('Push-Location -LiteralPath $projectRoot'));
   assert.ok(content.includes('scripts/clean-data.ts'));
   assert.ok(content.includes('Dependencies are missing'));
 
@@ -91,6 +93,25 @@ test('clean-data.ps1 PowerShell wrapper and scripts/clean-data.ts run cleanly fr
     fs.writeFileSync(path.join(fileRepoDir, 'ephemeral.txt'), 'secret', 'utf-8');
     fs.writeFileSync(path.join(sandbox, 'package.json'), '{"name":"sandbox"}', 'utf-8');
     fs.writeFileSync(path.join(sandbox, 'server.ts'), '// stub', 'utf-8');
+
+    if (process.platform === 'win32') {
+      const ps1Copy = path.join(scriptsDir, 'clean-data.ps1');
+      fs.copyFileSync(ps1Path, ps1Copy);
+      const binDir = path.join(sandbox, 'node_modules', '.bin');
+      fs.mkdirSync(binDir, { recursive: true });
+      fs.writeFileSync(
+        path.join(binDir, 'tsx.cmd'),
+        '@echo off\r\necho WORKDIR=%CD%\r\necho ARGS=%*\r\nexit /b 0\r\n'
+      );
+      const psRun = spawnSync(
+        'powershell.exe',
+        ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', ps1Copy],
+        { cwd: scriptsDir, encoding: 'utf-8', timeout: 15000 }
+      );
+      assert.equal(psRun.status, 0, psRun.stderr);
+      assert.ok(psRun.stdout.includes(`WORKDIR=${sandbox}`));
+      assert.ok(psRun.stdout.includes('ARGS=scripts/clean-data.ts'));
+    }
 
     const tsxCli = path.resolve(process.cwd(), 'node_modules', 'tsx', 'dist', 'cli.mjs');
     const cleanScriptModule = path.resolve(process.cwd(), 'scripts', 'clean-data.ts');
