@@ -34,24 +34,15 @@ Desktop.ini
 .local-data/file-repo/*
 !.local-data/file-repo/.gitkeep
 
-# Model weights (ignore chat/extra models; allow bundled Git LFS auxiliary weights)
+# Model weights (ignore all local models; keep only the models/.gitkeep placeholder)
 *.gguf
+*.onnx
+*.safetensors
+*.pt
+*.pth
+*.ckpt
 models/*
 !models/.gitkeep
-!models/nomic-embed-text-v1.5.Q8_0.gguf
-!models/GLM-OCR-GGUF/
-models/GLM-OCR-GGUF/*
-!models/GLM-OCR-GGUF/GLM-OCR-Q8_0.gguf
-!models/GLM-OCR-GGUF/mmproj-GLM-OCR-Q8_0.gguf
-!models/Kokoro-82M-v1.0-ONNX/
-models/Kokoro-82M-v1.0-ONNX/*
-!models/Kokoro-82M-v1.0-ONNX/config.json
-!models/Kokoro-82M-v1.0-ONNX/tokenizer.json
-!models/Kokoro-82M-v1.0-ONNX/tokenizer_config.json
-!models/Kokoro-82M-v1.0-ONNX/onnx/
-models/Kokoro-82M-v1.0-ONNX/onnx/*
-!models/Kokoro-82M-v1.0-ONNX/onnx/model_quantized.onnx
-/LLMCP/models/GLM-OCR-GGUF/
 
 # Runtime temp/backup files and private workspace exports
 *.log

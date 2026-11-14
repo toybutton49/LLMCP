@@ -1,5 +1,8 @@
 * text=auto eol=lf
-models/nomic-embed-text-v1.5.Q8_0.gguf filter=lfs diff=lfs merge=lfs -text
-models/GLM-OCR-GGUF/GLM-OCR-Q8_0.gguf filter=lfs diff=lfs merge=lfs -text
-models/GLM-OCR-GGUF/mmproj-GLM-OCR-Q8_0.gguf filter=lfs diff=lfs merge=lfs -text
-models/Kokoro-82M-v1.0-ONNX/onnx/model_quantized.onnx filter=lfs diff=lfs merge=lfs -text
+*.gguf filter=lfs diff=lfs merge=lfs -text
+*.onnx filter=lfs diff=lfs merge=lfs -text
+*.safetensors filter=lfs diff=lfs merge=lfs -text
+*.pt filter=lfs diff=lfs merge=lfs -text
+*.pth filter=lfs diff=lfs merge=lfs -text
+*.ckpt filter=lfs diff=lfs merge=lfs -text
+models/**/*.bin filter=lfs diff=lfs merge=lfs -text
